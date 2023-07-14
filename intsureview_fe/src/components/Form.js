@@ -1,5 +1,6 @@
 // I'm using react hook form to construct my form component
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import "../styles/Form.css";
 
 function Form() {
@@ -8,9 +9,20 @@ function Form() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
-
-  console.log(errors);
+  
+  const onSubmit = (data) => {
+    console.log(data)
+    axios
+      .post("http://localhost:8000/api/form-submission/", data)
+      .then((response) => {
+        // Handle success response
+        console.log(response.data.message);
+      })
+      .catch((error) => {
+        // Handle error response
+        console.error(error.response.data.message);
+      });
+  };
 
   return (
     <div className="row justify-content-center mt-4">

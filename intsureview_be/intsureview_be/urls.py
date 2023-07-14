@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 from intsureview_be.apps.api import views
+from intsureview_be.apps.api.views import FormSubmissionView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -18,4 +19,5 @@ router.register(r"groups", views.GroupViewSet)
 urlpatterns = [
     path("", include(router.urls)),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
+    path("api/form-submission/", FormSubmissionView.as_view(), name='form_submission'),
 ]
