@@ -4,6 +4,7 @@ import axios from "axios";
 import "../styles/Form.css";
 
 function Form({ toast }) {
+  // Initialize the react-hook-form
   const {
     register,
     handleSubmit,
@@ -11,21 +12,20 @@ function Form({ toast }) {
     reset,
   } = useForm();
 
+  // Handles the form submission
   const onSubmit = (data) => {
     console.log(data);
     axios
       .post("http://localhost:8000/api/form-submission/", data)
       .then((response) => {
-        // success response
-        console.log(response.data.message);
+        // Handles success response and shows successful toast message
         toast.success(response.data.message, {
           autoDismiss: true,
         });
         reset();
       })
       .catch((error) => {
-        // error response
-        console.error(error.response.data.message);
+        // Handles error response and shows error toast message
         toast.error(error.response.data.message, {
           autoDismiss: true,
         });
