@@ -3,24 +3,32 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import "../styles/Form.css";
 
-function Form() {
+function Form({ toast }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
-  
+
   const onSubmit = (data) => {
-    console.log(data)
+    console.log(data);
     axios
       .post("http://localhost:8000/api/form-submission/", data)
       .then((response) => {
-        // Handle success response
+        // success response
         console.log(response.data.message);
+        toast.success(response.data.message, {
+          autoDismiss: true,
+        });
+        reset();
       })
       .catch((error) => {
-        // Handle error response
+        // error response
         console.error(error.response.data.message);
+        toast.error(error.response.data.message, {
+          autoDismiss: true,
+        });
       });
   };
 
@@ -33,7 +41,7 @@ function Form() {
               {/* First Name Input */}
               <div className="form-group">
                 <label htmlFor="firstName" className="form-label">
-                  First Name
+                  First Name *
                 </label>
                 <input
                   {...register("firstName", {
@@ -55,7 +63,7 @@ function Form() {
               {/* Last Name Input */}
               <div className="form-group">
                 <label htmlFor="lastName" className="form-label">
-                  Last Name
+                  Last Name *
                 </label>
                 <input
                   {...register("lastName", {
@@ -78,7 +86,7 @@ function Form() {
           {/* Email Input */}
           <div className="form-group">
             <label htmlFor="email" className="form-label">
-              Email
+              Email *
             </label>
             <input
               {...register("email", {
@@ -100,7 +108,7 @@ function Form() {
           {/* Prior Attendance Selection */}
           <div className="form-group">
             <label htmlFor="priorAttendance" className="form-label">
-              Prior Attendance
+              Prior Attendance *
             </label>
             <select
               {...register("priorAttendance", {
@@ -126,7 +134,7 @@ function Form() {
           {/* Workshop Selection */}
           <div className="form-group">
             <label htmlFor="workshop" className="form-label">
-              Workshop
+              Workshop *
             </label>
             <select
               {...register("workshop", {
