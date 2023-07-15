@@ -14,7 +14,6 @@ function Form({ toast }) {
 
   // Handles the form submission
   const onSubmit = (data) => {
-    console.log(data);
     axios
       .post("http://localhost:8000/api/form-submission/", data)
       .then((response) => {
